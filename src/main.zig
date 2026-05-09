@@ -12,6 +12,8 @@ pub fn main(init: std.process.Init) !void {
 
     try out.print("Architecture : {s}\n", .{@tagName(builtin.cpu.arch)});
     try out.print("Compile-time : {s}\n", .{builtin.cpu.model.name});
+    const cores = try std.Thread.getCpuCount();
+    try out.print("Cores        : {d}\n", .{cores});
 
     // /proc/cpuinfo is virtual: stat reports size 0, so force streaming mode
     // so the reader doesn't prematurely return EOF from a zero-size hint.
